@@ -14,7 +14,9 @@
 #include "hisi_fb.h"
 #include <linux/leds.h>
 
+#ifdef CONFIG_HW_ZEROHUNG
 #include <chipset_common/hwzrhung/hung_wp_screen.h>
+#endif
 
 #define K3_DSS_SBL_WORKQUEUE	"k3_dss_sbl_workqueue"
 
@@ -60,7 +62,9 @@ void hisifb_set_backlight(struct hisi_fb_data_type *hisifd, uint32_t bkl_lvl, bo
 			return;
 		}
 
+#ifdef CONFIG_HW_ZEROHUNG
 		hung_wp_screen_setbl(temp);
+#endif
 		if (hisifd->backlight.bl_level_old == 0) {
 			HISI_FB_INFO("backlight level = %d \n", bkl_lvl);
 		}

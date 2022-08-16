@@ -203,6 +203,9 @@ obj-$(CONFIG_CONTEXTHUB)        += contexthub/
 obj-$(CONFIG_HW_GADGET) += hwusb/
 obj-$(CONFIG_HUAWEI_BFM) += hwbfm/
 obj-$(CONFIG_HW_ZEROHUNG) += hwzerohung/
+ifndef CONFIG_HW_ZEROHUNG
+obj-y += hwzerohungshim/
+endif
 obj-$(CONFIG_HW_FDLEAK) += hwfdleak/
 obj-$(CONFIG_HW_ERECOVERY) += hwerecovery/
 obj-$(CONFIG_HW_WIFI)       += hwnet/
