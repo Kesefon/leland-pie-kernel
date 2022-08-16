@@ -77,3 +77,4 @@ endif
 ifeq ($(CONFIG_DM_VERITY_AVB),y)
 dm-verity-objs			+= dm-verity-avb.o
 endif
+EXTRA_CFLAGS += -Wno-error=incompatible-pointer-types

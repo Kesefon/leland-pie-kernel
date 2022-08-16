@@ -22,6 +22,7 @@ obj-$(CONFIG_HUAWEI_HOST_TS_KIT) += hostprocessing/
 EXTRA_CFLAGS += -Idrivers/devkit/lcdkit/lcdkit1.0/core/common
 EXTRA_CFLAGS += -Idrivers/devkit/lcdkit/lcdkit1.0/include
 EXTRA_CFLAGS += -Idrivers/hwspinlock
+EXTRA_CFLAGS += -Wno-error=incompatible-pointer-types
 
 obj-$(CONFIG_HUAWEI_TS_KIT_3_0)    += 3_0/
 

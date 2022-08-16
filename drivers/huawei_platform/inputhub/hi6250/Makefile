@@ -20,3 +20,4 @@ obj-$(CONFIG_INPUTHUB)  += sensor_sys_info.o
 #ifdef CONFIG_HISI_BB
 obj-$(CONFIG_INPUTHUB)  += rdr_sensorhub.o
 #endif
+EXTRA_CFLAGS += -Wno-error=incompatible-pointer-types

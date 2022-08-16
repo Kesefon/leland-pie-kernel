@@ -67,3 +67,4 @@ ccflags-y += -fno-pic
 endif
 
 topazkm-objs :=  platform/hisi/sysdev.o kernel_device/libraries/topaz_hp/code/memmgr/memmgr_km.o kernel_device/libraries/topaz_hp/code/hostutils.o kernel_device/libraries/topaz_hp/code/fwtrace.o kernel_device/libraries/topaz_hp/code/MTX_FwIF.o kernel_device/libraries/topaz_hp/code/topazmmu.o kernel_device/libraries/topaz_hp/code/topaz_device_km.o ../imgvideo/rpc/sysbrg/src/memmgr_api_server.o ../imgvideo/rpc/sysbrg/src/hostutils_api_server.o
+EXTRA_CFLAGS += -Wno-error=incompatible-pointer-types
