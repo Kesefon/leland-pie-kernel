@@ -114,9 +114,10 @@ static unsigned int noc_clock_enable(struct hisi_noc_device *noc_dev,
 	unsigned int flag = 1;
 
 	if (!noc_dev->pcrgctrl_base) {
-		if (1 == noc_property_dt.noc_debug)
+		if (1 == noc_property_dt.noc_debug) {
 			pr_err("[%s]: pcrgctrl_base is null.\n", __func__);
 			return 1;	/* For portland , CRG is not defined */
+		}
 	}
 
 	/* Clock judgement is platform-dependence. */
