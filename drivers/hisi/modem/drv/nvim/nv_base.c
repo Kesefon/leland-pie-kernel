@@ -1019,7 +1019,7 @@ s32 bsp_nvm_kernel_init(void)
     wake_lock_init(&g_nv_ctrl.wake_lock,WAKE_LOCK_SUSPEND,"nv_wakelock");
     g_nv_ctrl.shared_addr = (nv_global_info_s *)NV_GLOBAL_INFO_ADDR;
 
-    nv_record("Balong nv init  start! %s %s\n",__DATE__,__TIME__);
+    nv_record("Balong nv init  start!\n");
 
     (void)nv_debug_init();
 
