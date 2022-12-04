@@ -399,15 +399,9 @@ LINUXINCLUDE += -I$(srctree)/mm \
 		-I$(srctree)/include/linux/hisi \
 		-I$(srctree)/drivers \
 		-I$(srctree)/drivers/huawei_platform \
-		-I$(srctree)/fs/proc
-
-ifeq ($(CFG_LCD_KIT),true)
-LINUXINCLUDE += -I$(objtree)/drivers/devkit/lcdkit/lcdkit3.0
-else
-LINUXINCLUDE += -I$(objtree)/drivers/devkit/lcdkit/lcdkit1.0
-endif
-
-LINUXINCLUDE += -I$(srctree)/drivers/hisi/ap/platform/$(TARGET_BOARD_PLATFORM)
+		-I$(srctree)/fs/proc \
+		-I$(objtree)/drivers/devkit/lcdkit/lcdkit1.0 \
+		-I$(srctree)/drivers/hisi/ap/platform/$(TARGET_BOARD_PLATFORM)
 
 LINUXINCLUDE	+= $(filter-out $(LINUXINCLUDE),$(USERINCLUDE))
 
@@ -429,28 +423,11 @@ GCC_PLUGINS_CFLAGS :=
 KERNELRELEASE = $(shell cat include/config/kernel.release 2> /dev/null)
 KERNELVERSION = $(VERSION)$(if $(PATCHLEVEL),.$(PATCHLEVEL)$(if $(SUBLEVEL),.$(SUBLEVEL)))$(EXTRAVERSION)
 
-# build drv only config
-OBB_SEPARATE        ?=$(separate)
-ifeq ($(strip $(OBB_SEPARATE)),true)
-KBUILD_CFLAGS += -DDRV_BUILD_SEPARATE
-KBUILD_AFLAGS += -DDRV_BUILD_SEPARATE
-KBUILD_CPPFLAGS += -DDRV_BUILD_SEPARATE
-endif
-
-#add SLT FEATURE to ap
-ifeq ($(strip $(hitest_type)),slt)
-KBUILD_CFLAGS += -D__SLT_FEATURE__
-endif
-
-ifneq ($(BALONG_FAMA_FLAGS),)
-KBUILD_CFLAGS += $(BALONG_FAMA_FLAGS)
-endif
-
+# add hisilicon balong configs
 OBB_PRODUCT_NAME = hi6250
 CFG_PLATFORM = hi6250
 TARGET_ARM_TYPE = arm64
-export OBB_PRODUCT_NAME CFG_PLATFORM TARGET_ARM_TYPE 
-# add hisilicon balong configs end
+export OBB_PRODUCT_NAME CFG_PLATFORM TARGET_ARM_TYPE
 
 export VERSION PATCHLEVEL SUBLEVEL KERNELRELEASE KERNELVERSION
 export ARCH SRCARCH CONFIG_SHELL HOSTCC HOSTCFLAGS CROSS_COMPILE AS LD CC
@@ -967,9 +944,7 @@ LDFLAGS_vmlinux += $(LDFLAGS_BUILD_ID)
 ifdef CONFIG_LD_DEAD_CODE_DATA_ELIMINATION
 LDFLAGS_vmlinux	+= $(call ld-option, --gc-sections,)
 endif
-ifeq ($(ARCH),arm64)
-LDFLAGS_vmlinux += --fix-cortex-a53-843419
-endif
+
 ifeq ($(CONFIG_STRIP_ASM_SYMS),y)
 LDFLAGS_vmlinux	+= $(call ld-option, -X,)
 endif
@@ -1114,7 +1089,6 @@ ARCH_POSTLINK := $(wildcard $(srctree)/arch/$(SRCARCH)/Makefile.postlink)
 	$(if $(ARCH_POSTLINK), $(MAKE) -f $(ARCH_POSTLINK) $@, true)
 
 vmlinux: scripts/link-vmlinux.sh vmlinux_prereq $(vmlinux-deps) FORCE
-
 	+$(call if_changed,link-vmlinux)
 
 # Build samples along the rest of the kernel
