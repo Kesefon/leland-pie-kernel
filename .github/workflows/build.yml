@@ -1,0 +1,22 @@
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup GCC
+        run: sudo apt-get install gcc-aarch64-linux-gnu
+      - name: Configure Build
+        run: CROSS_COMPILE=aarch64-linux-gnu- make ARCH=arm64 merge_hi6250_defconfig
+      - name: Build
+        run: CROSS_COMPILE=aarch64-linux-gnu- make ARCH=arm64 -j$(nproc)
+      - name: Upload output file
+        uses: actions/upload-artifact@v1
+        with:
+          name: Image.gz
+          path: arch/arm64/boot/Image.gz
