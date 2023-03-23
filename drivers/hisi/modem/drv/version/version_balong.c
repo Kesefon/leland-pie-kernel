@@ -217,17 +217,6 @@ char * bsp_version_get_product_out_name(void)
 ******************************************************************************/
 
 
-
-/*****************************************************************************
-* 函 数	: bsp_get_build_date_time
-* 功 能	: 获取编译日期和时间
-*****************************************************************************/
-char * bsp_version_get_build_date_time(void)
-{
-	static char * build_date   = __DATE__ ", " __TIME__;
-	return build_date;
-}
-
 /*****************************************************************************
 * 函 数	: bsp_get_chip_version
 * 功 能	: 获取芯片版本号
@@ -323,7 +312,6 @@ int bsp_version_debug(void)
     ver_print_error("HardWare ver   :%s\n",bsp_version_get_hardware());
     ver_print_error("Inner name     :%s\n",bsp_version_get_product_inner_name());
     ver_print_error("Out name       :%s\n",bsp_version_get_product_out_name());
-    ver_print_error("Build_time     :%s\n",bsp_version_get_build_date_time());
     ver_print_error("Chip_ver       :%s\n",bsp_version_get_chip());
     ver_print_error("Firmware       :%s\n",bsp_version_get_firmware());
     ver_print_error("Release_ver    :%s\n",bsp_version_get_release());

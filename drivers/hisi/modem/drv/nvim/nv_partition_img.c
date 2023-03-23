@@ -464,7 +464,7 @@ u32 nv_img_resume_item(nv_item_info_s *item_info, u32 modem_id)
     if(NULL == temp_buff)
     {
         nv_debug(NV_FUN_RESUME_IMG_ITEM,2,0,0,0);
-        nv_record("resume nvid vmalloc fail 0x%x ...%s %s \n", item_info->itemid, __DATE__,__TIME__);
+        nv_record("resume nvid vmalloc fail 0x%x ...\n", item_info->itemid);
         return BSP_ERR_NV_MALLOC_FAIL;
     }
     
@@ -473,7 +473,7 @@ u32 nv_img_resume_item(nv_item_info_s *item_info, u32 modem_id)
     {
         vfree(temp_buff);
         nv_debug(NV_FUN_RESUME_IMG_ITEM,3,ret,0,0);
-        nv_record("resume nvid read file fail 0x%x 0x%x ...%s %s \n", ret, item_info->itemid, __DATE__,__TIME__);
+        nv_record("resume nvid read file fail 0x%x 0x%x ...\n", ret, item_info->itemid);
         return ret;
     }
 
@@ -484,7 +484,7 @@ u32 nv_img_resume_item(nv_item_info_s *item_info, u32 modem_id)
         {
             vfree(temp_buff);
             nv_debug(NV_FUN_RESUME_IMG_ITEM,4,ret,0,0);
-            nv_record("resume nvid crc check fail 0x%x 0x%x ...%s %s \n", ret, item_info->itemid, __DATE__,__TIME__);
+            nv_record("resume nvid crc check fail 0x%x 0x%x ...\n", ret, item_info->itemid);
             return BSP_ERR_NV_CRC_CODE_ERR;
         }
     }

@@ -149,17 +149,17 @@ bool nv_flag_file_isExist(const s8* path)
 void nv_file_flag_check(void)
 {
     if( !mdrv_file_access((char*)NV_BACK_FLAG_PATH,0)){
-        nv_record("%s %s :last time [back file] write abnomal,rewrite !\n",__DATE__,__TIME__);
+        nv_record("last time [back file] write abnomal,rewrite !\n");
         (void)bsp_nvm_backup(NV_FLAG_NEED_CRC);
     }
 
     if( !mdrv_file_access((char*)NV_SYS_FLAG_PATH,0)){
-        nv_record("%s %s :last time [sys file] write abnomal,rewrite !\n",__DATE__,__TIME__);
+        nv_record("last time [sys file] write abnomal,rewrite !\n");
         (void)bsp_nvm_flushSys();
     }
 
     if( !mdrv_file_access((char*)NV_IMG_FLAG_PATH,0)){
-        nv_record("%s %s :last time [img file] write abnomal,rewrite !\n",__DATE__,__TIME__);
+        nv_record("last time [img file] write abnomal,rewrite !\n");
         (void)nv_img_flush_all();
     }
 }
@@ -293,7 +293,7 @@ u32 nv_load_err_proc(void)
 
     unsigned long nvflag = 0;
 
-    nv_record("load error proc ...%s %s \n",__DATE__,__TIME__);
+    nv_record("load error proc ...\n");
     /*lint -save -e550*//* Warning 550: (Warning -- Symbol '__dummy' (line 267) not accessed)*/
     nv_spin_lock(nvflag, IPC_SEM_NV);
     /*lint -restore*/
@@ -311,7 +311,7 @@ u32 nv_load_err_proc(void)
         return BSP_ERR_NV_NO_FILE;
     }
 
-    nv_record("%s %s load from %s ...\n",__DATE__,__TIME__,NV_DLOAD_PATH);
+    nv_record("load from %s ...\n",NV_DLOAD_PATH);
     
     ret = nv_read_ctrl_from_upfile();
     if(ret)
@@ -359,7 +359,7 @@ u32 nv_load_err_proc(void)
     nv_spin_unlock(nvflag, IPC_SEM_NV);
     nv_flush_cache((u8*)NV_GLOBAL_START_ADDR, SHM_MEM_NV_SIZE);
 
-    nv_record("load error proc OK ...%s %s \n",__DATE__,__TIME__);
+    nv_record("load error proc OK ...\n");
     return NV_OK;
 }
 
@@ -1457,12 +1457,12 @@ u32 nv_resume_ddr_from_img(void)
     nv_debug(NV_CRC32_DDR_RESUME_IMG,0,0,0,0);
     if(!nv_debug_is_resume_img())
     {
-        nv_record("nv resume cfg not %s ...%s %s \n",g_nv_path.file_path[NV_IMG],__DATE__,__TIME__);
+        nv_record("nv resume cfg not %s ...\n",g_nv_path.file_path[NV_IMG]);
         return NV_OK;
     }
     else
     {
-        nv_record("nv resume %s ...%s %s \n",g_nv_path.file_path[NV_IMG],__DATE__,__TIME__);
+        nv_record("nv resume %s ...\n",g_nv_path.file_path[NV_IMG]);
     }
 
 	/*lock write right*/
@@ -1479,7 +1479,7 @@ u32 nv_resume_ddr_from_img(void)
     ret = bsp_nvm_reload();
     if(ret)
     {
-        nv_record("NV resume fail ...%s %s \n",__DATE__,__TIME__);
+        nv_record("NV resume fail ...\n");
     }
     else
     {
@@ -1490,7 +1490,7 @@ u32 nv_resume_ddr_from_img(void)
         ddr_info->acore_init_state = NV_INIT_OK;
         nv_spin_unlock(nvflag, IPC_SEM_NV);
         nv_flush_cache((u8*)NV_GLOBAL_START_ADDR, SHM_MEM_NV_SIZE);
-        nv_record("NV resume OK ...%s %s \n",__DATE__,__TIME__);
+        nv_record("NV resume OK ...\n");
     }
 
     return ret;
